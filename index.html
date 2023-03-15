@@ -8,8 +8,55 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <div class="main-container" id="main">
+        <header>
+            <div class="top-menu">
+                <div class="left-side">
+                    <button class="openbtn" onclick="openNav()">☰</button>  
+                    <h1 class="title">Library</h1>
+                </div>
+                <button class="sign-in button" role="button">Sign-in</button>
+            </div>
+        </header>
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <div class="counters">
+                <hr class="rounded outside" id="top-line">
+                <h2>Information</h2>
+                <hr class="rounded">
+                <div class="list-item">
+                    <div class="item">Books: </div>
+                    <div class="counter quantity">0</div>
+                </div>
+                <div class="list-item">
+                    <div class="item">Books Started: </div>
+                    <div class="counter started">0</div>
+                </div>
+                <div class="list-item">
+                    <div class="item">Page count: </div>
+                    <div class="counter pages">0</div>
+                </div>
+                <div class="list-item">
+                    <div class="item">Books completed: </div>
+                    <div class="counter completed">0</div>
+                </div>
+                <hr class="rounded outside">
+            </div>
+        </div>
 
-    <link rel="Javascript" href="javascript.js">
+        <div class="book-container">
+            <div class="book">
+                <p class="book-title">Title: A Game of Thrones</p>
+                <p class="author">Author: George R.R. Martin</p>
+                <p class="pages"># of Pages: 694</p>
+                <p class="published">Published: July 1, 1996</p>
+                <div class="read-or-not">
+                    <button class="read">Finished &#x2713</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascript.js"></script>
 </body>
 </html>
