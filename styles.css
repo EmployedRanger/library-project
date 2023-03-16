@@ -175,6 +175,16 @@ h2 {
     padding: 15px;
 }
 
+.button-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-book {
+    border:none;
+    border-radius: 12px;
+}
+
 .book {
     margin: 15px;
     background-color: var(--scarlet--);
@@ -227,3 +237,18 @@ h2 {
     cursor: pointer;
     scale: 1.11;
 }
+
+form {
+    /* display: none; */
+    padding: 25px;
+    width: 500px;
+}
+
+.form-part {
+    margin: 15px;
+    width: 100%;
+}
+
+/* body {
+    filter: blue(2px);
+} */

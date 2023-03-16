@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="main-container" id="main">
+    <section class="main-container" id="main">
         <header>
             <div class="top-menu">
                 <div class="left-side">
@@ -53,8 +53,11 @@
                 <p class="author">Author: George R.R. Martin</p>
                 <p class="pages"># of Pages: 694</p>
                 <p class="published">Published: July 1, 1996</p>
-                <div class="read-or-not">
-                    <button class="read">Not Read ×</button>
+                <div class="button-box">
+                    <div class="read-or-not">
+                        <button class="read">Not Read ×</button>
+                    </div>
+                    <button class="delete-book">×</div>
                 </div>
             </div>
             <div class="book">
@@ -203,7 +206,45 @@
             </div>
 
         </div>
-    </div>
+    </section>
+
+    <section class="add-book-container">
+        <form>
+            <title>Add New Book</title>
+            <div class="question-container">
+                <div class="form-part">
+                    <p class="question">What is the book title?</p>
+                    <label for="book-title"></label>
+                    <input type="text" placeholder="Book Title" id="" name="">
+                </div>
+                <div class="form-part">
+                    <p class="question">Who is the author?</p>
+                    <label for=""></label>
+                    <input type="text" placeholder="Author Name" id="author" name="">
+                </div>
+                <div class="form-part">
+                    <p class="question">How many pages does this have?</p>
+                    <label for=""></label>
+                    <input type="text" placeholder="# of pages" id="" name="">
+                </div>
+                <div class="form-part">
+                    <p class="question">When was this published?</p>
+                    <label for=""></label>
+                    <input type="text" placeholder="" id="" name="">
+                </div>
+                <div class="form-part">
+                    <p class="question">Have you read this book?</p>
+                    <select>
+                        <option value="read">I have read this book</option>
+                        <option value="not-read">I have not read this book</option>
+                    </select>
+                </div>
+                <div class="submit-button">
+                    <input type="submit" value="Submit" class="submit">
+                </div>
+            </div>
+        </form>
+    </section>
 
     <script src="javascript.js"></script>
 </body>
