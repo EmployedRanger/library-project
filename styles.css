@@ -256,15 +256,15 @@ h2 {
 .add-book-container {
     display: none;
     z-index: 1;
-
-    /* filter: none; */
     background-color: var(--scarlet--);
     width: 500px;
     height: 600px;
     font-size: 19px;
     box-shadow:  0 0 5px 5px black;
     display: flex;
-    margin: 50px;
+    margin-left: 40%;
+    margin-top: 10%;
+    overflow: hidden;
 }
 
 .question-container {
