@@ -108,6 +108,7 @@ h2 {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    font-size: 24px;
 }
 
 #top-line {
@@ -175,13 +176,26 @@ h2 {
     padding: 15px;
 }
 
+.delete-book {
+    border: none;
+    color: whitesmoke;
+    font-size: 32px;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+.delete-book:hover,
+.close-book:hover {
+    scale: 1.1;
+}
+
 .button-box {
     display: flex;
     justify-content: space-between;
 }
 
 .button-book {
-    border:none;
+    border: none;
     border-radius: 12px;
 }
 
@@ -195,14 +209,13 @@ h2 {
     color: whitesmoke;
     min-width: 200px;
     max-width: 350px;
-
 }
 
 .book:hover {
     scale: 1.01;
 }
 
-#add-book-container:hover {
+#add-book-button:hover {
     scale: 1;
 }
 
@@ -233,22 +246,168 @@ h2 {
     margin-left: 25px;
 }
 
+.close-form:hover {
+    scale: 1.11;
+    transform-origin: right;
+    color: black;
+    cursor: pointer;
+}
+
+.add-book-container {
+    display: none;
+    z-index: 1;
+
+    /* filter: none; */
+    background-color: var(--scarlet--);
+    width: 500px;
+    height: 600px;
+    font-size: 19px;
+    box-shadow:  0 0 5px 5px black;
+    display: flex;
+    margin: 50px;
+}
+
+.question-container {
+    margin-left: 15px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 #add-book:hover {
     cursor: pointer;
     scale: 1.11;
 }
 
 form {
-    /* display: none; */
-    padding: 25px;
+    padding: 35px;
     width: 500px;
 }
 
-.form-part {
-    margin: 15px;
-    width: 100%;
+.upper-container {
+    display: grid;
+    grid-template-rows: 1fr 5fr;
+    height: 60px;
+    margin-top: -22px;
+    margin-bottom: 18px;
 }
 
-/* body {
-    filter: blue(2px);
-} */
+.close-form {
+    grid-row: 1 / 2;
+    text-align: right;
+    margin-top: -20px;
+    margin-right: -10px;
+    font-size: 32px;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.form-part {
+    margin: 5px;
+    width: 79%;
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    font-weight: bold;
+    height: 65px;
+}
+
+select,
+input {
+    color: black;
+    background-color: var(--olive--);
+    height: 20px;
+    border-radius: 8px;
+    text-indent: 5px;
+    box-shadow: 2px 2px 2px black;
+    border: none;
+}
+
+.form-title {
+    text-align: center;
+    margin: 0;
+    margin-left: -15px;
+    padding: 0;
+    font-size: 32px;
+    font-weight: 700;
+    grid-row: 2 / 6;
+    color: whitesmoke;
+}
+
+label {
+    margin: 5px;
+}
+
+.required-text {
+    font-size: 12px;
+    margin-right: 22px;
+}
+
+.submit-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 4px;
+}
+
+.submit {
+    height: 2rem;
+    width: 5rem;
+    border-radius: 12px;
+    background-color: var(--teal--);
+    box-shadow: 2px 2px 2px black;
+    border: none;
+    text-indent: 0px;
+}
+
+.submit:hover {
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+form {
+    margin: auto;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    justify-content: center;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
