@@ -69,28 +69,32 @@ function closeNav() {
 }
 
 
-// for (let i = 0; i < readButtons.length; i++) {
-//     readButtons[i].addEventListener('click', function() {
-//         if (this.innerHTML === 'Finished ✔') {
-//             this.innerHTML = 'Not Read ×';
 
-//             booksFinishedCounter--;
-//             booksFinishedDisplay.innerHTML = booksFinishedCounter;
-//             if (this.parentElement.parentElement.classList.contains('finished')) {
-//                 booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML - 1);
-//             }
-//         } else if (this.innerHTML === 'Not Read ×') {
-//             this.innerHTML = 'Finished ✔';
+function buttonFlipper (){
+    if (this.innerHTML === 'Finished ✔') {
+        this.innerHTML = 'Not Read ×';
 
-//             booksFinishedCounter++;
-//             booksFinishedDisplay.innerHTML = booksFinishedCounter;
-//             if (this.parentElement.parentElement.classList.contains('finished')) {
-//                 booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML + 1);
-//             }
-//         }
-//         booksPercentageCounter.innerHTML = Math.round((parseInt(booksFinishedDisplay.innerHTML) / bookCounter) * 100) + '%';
-//     });
-// }
+        booksFinishedCounter--;
+        booksFinishedDisplay.innerHTML = booksFinishedCounter;
+        if (this.parentElement.parentElement.classList.contains('finished')) {
+            booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML - 1);
+        }
+    } else if (this.innerHTML === 'Not Read ×') {
+        this.innerHTML = 'Finished ✔';
+
+        booksFinishedCounter++;
+        booksFinishedDisplay.innerHTML = booksFinishedCounter;
+        if (this.parentElement.parentElement.classList.contains('finished')) {
+            booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML + 1);
+        }
+    }
+    booksPercentageCounter.innerHTML = Math.round((parseInt(booksFinishedDisplay.innerHTML) / bookCounter) * 100) + '%';
+}
+
+
+function pageLoopCounter() {
+    library.pa
+}
 
 function removeBook() {
     const bookDiv = event.target.closest('.book');
@@ -145,10 +149,11 @@ function createBookDiv (book) {
     const readButton = document.createElement('button');
     readButton.classList.add('read');
     readButton.textContent = book.readOrNot ? 'Finished ✔' : 'Not Read ×';
-    readButton.addEventListener("click", () => {
-        book.read = !book.read;
-        readButton.textContent = book.read ? "Finished ✓" : "Not Read ×";
-      });
+    readButton.addEventListener('click', buttonFlipper);
+    // readButton.addEventListener("click", () => {
+    //     book.read = !book.read;
+    //     readButton.textContent = book.read ? "Not Read ×" : "Finished ✔";
+    //   });
     readOrNotDiv.appendChild(readButton);
     
     const deleteButton = document.createElement('a');
