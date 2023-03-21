@@ -370,9 +370,6 @@ form {
     margin: auto;
 }
 
-
-
-/* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -411,3 +408,7 @@ form {
     cursor: pointer;
   }
   
+  .read {
+    font-weight: normal;
+    font-size: 14px;
+  }
