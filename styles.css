@@ -168,7 +168,7 @@ h2 {
     .sidebar a {font-size: 18px;}
 }
 
-
+add-book,
 .book-container {
     display: grid;
     grid-template-rows: repeat(2, 1fr);
@@ -198,6 +198,7 @@ h2 {
     border: none;
     border-radius: 12px;
 }
+
 
 .book {
     margin: 15px;

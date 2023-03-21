@@ -1,4 +1,4 @@
-const addBook = document.getElementById('add-book');
+addBook = document.getElementById('add-book');
 const addBookContainer = document.getElementById('add-book-container');
 const mainContainer = document.getElementById('main');
 const formAddBook = document.getElementById('form-add-book');
@@ -18,22 +18,9 @@ let booksFinishedCounter = 14;
 let bookCounter = 17;
 let pageCounter = 0;
 
-books.forEach(book => {
-    const titleElement = book.querySelector('.book-title')?.textContent.split(': ')[1];
-    console.log(titleElement)
-    const authorElement = book.querySelector('.author')?.textContent.split(': ')[1];
-    const pagesElement = parseInt(book.querySelector('.pages')?.textContent.split(': ')[1]);
-    const publishedElement = new Date(book.querySelector('.published')?.textContent.split(': ')[1]);
-    const readButtonOriginal = book.querySelector('.read');
-    const read = readButtonOriginal?.textContent.endsWith('✔');
-    const bookObject = new Book(titleElement, authorElement, pagesElement, publishedElement, read);
-    library.push(bookObject);
-});
 
 function hardCodedBooks () {
-    library.push(new Book("A Game of Thrones", "George R.R. Martin", 694, "July 1, 1996", false));
-    library.push(new Book("The Fellowship of the Ring", "J.R.R. Tolkien", 423, "July 29, 1954", false));
-    library.push(new Book("The Hobbit", "J.R.R. Tolkien", 304, "1937", false));
+    library.push(new Book('+'));
     library.push(new Book("The Undead King", "Kugane Maruyama", 160, "May 24, 2016", true));
     library.push(new Book("The Dark Warrior", "Kugane Maruyama", 158, "Sept 27, 2016", true));
     library.push(new Book("The Lizard Man Heroes", "Kugane Maruyama", 309, "May 23, 2017", true));
@@ -48,32 +35,93 @@ function hardCodedBooks () {
     library.push(new Book("The Paladin of the Sacred Kingdom Pt. 2", "Kugane Maruyama", 341, "June 1, 2021", true));
     library.push(new Book("The Bloody Valkyrie", "Kugane Maruyama", 175, "Jan 24, 2017", true));
     library.push(new Book("The Witch of the Fallen Kingdom", "Kugane Maruyama", 485, "June 28, 2022", true));
+    library.push(new Book("A Game of Thrones", "George R.R. Martin", 694, "July 1, 1996", false));
+    library.push(new Book("The Fellowship of the Ring", "J.R.R. Tolkien", 423, "July 29, 1954", false));
+    library.push(new Book("The Hobbit", "J.R.R. Tolkien", 304, "1937", false));
 }
 
-hardCodedBooks();
+books.forEach(book => {
+    if (index === 0) {
+        const addDiv = document.createElement('div');
+        addDiv.setAttribute('id', 'add-book');
+        // addDiv.classList.add('book')
+        
+        const addButton = document.createElement('button');
+        addButton.setAttribute('type', 'button');
+        addButton.setAttribute('value', 'Add Child');
+        addButton.setAttribute('id', 'add-book');
+        addButton.value = '&plus;';
+        addDiv.appendChild(addButton);
+        
+        library.push(addDiv);
+    } else {
+        // const titleElement = book.querySelector('.book-title')?.textContent.split(': ')[1];
+        // const authorElement = book.querySelector('.author')?.textContent.split(': ')[1];
+        // const pagesElement = parseInt(book.querySelector('.pages')?.textContent.split(': ')[1]);
+        // const publishedElement = new Date(book.querySelector('.published')?.textContent.split(': ')[1]);
+        // const readButtonOriginal = book.querySelector('.read');
+        // const read = readButtonOriginal?.textContent.endsWith('✔');
+        // const bookObject = new Book(titleElement, authorElement, pagesElement, publishedElement, read);
+        
+    }
+});
 
-booksFinishedDisplay.innerHTML = booksFinishedCounter;
-bookQuantityDisplay.innerHTML = bookCounter;
-pageCounterDisplay.innerHTML = pageCounter;
-booksPercentageCounter.innerHTML = Math.round((parseInt(booksFinishedDisplay.innerHTML) / bookCounter) * 100) + '%';
+function addCard () {
+    const addDiv = document.createElement('div');
+    addDiv.setAttribute('id', 'add-book');
+    // addDiv.classList.add('book')
+    
+    const addButton = document.createElement('button');
+    addButton.setAttribute('type', 'button');
+    addButton.setAttribute('value', 'Add Child');
+    addButton.setAttribute('id', 'add-book');
+    addButton.value = '&plus;';
+    addDiv.appendChild(addButton);
+}
 
+function AddCardConstructor(text) {
+    this.text = text;
+}
+
+// When the user clicks the add button, open form 
+// Switches form from 'none' to 'block'
+// addBook.onclick = function() {
+//     modal.style.display = "block";
+//     mainContainer.style.filter = "blur(2px)"
+// }
 
 function openNav() {
     document.getElementById("mySidebar").style.width = "20vw";
     document.getElementById("main").style.marginLeft = "20vw";
 }
-  
+
 function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
 }
 
+function pageLoopCounter() {
+    let pageCounter = 0;
+    library.forEach(function(book) {
+        pageCounter += parseInt(book.pages);
+    })
+    pageCounterDisplay.innerHTML = pageCounter;
+}
 
+function update () {
+    booksPercentageCounter.innerHTML = Math.round((parseInt(booksFinishedDisplay.innerHTML) / bookCounter) * 100) + '%';
+    booksFinishedDisplay.innerHTML = booksFinishedCounter;
+    bookQuantityDisplay.innerHTML = bookCounter;
+    pageCounterDisplay.innerHTML = pageCounter;
+    bookCounter = library.length - 1;
+    bookQuantityDisplay.innerHTML = bookCounter;
+    pageLoopCounter();
+}
 
 function buttonFlipper (){
     if (this.innerHTML === 'Finished ✔') {
         this.innerHTML = 'Not Read ×';
-
+        
         booksFinishedCounter--;
         booksFinishedDisplay.innerHTML = booksFinishedCounter;
         if (this.parentElement.parentElement.classList.contains('finished')) {
@@ -81,30 +129,26 @@ function buttonFlipper (){
         }
     } else if (this.innerHTML === 'Not Read ×') {
         this.innerHTML = 'Finished ✔';
-
+        
         booksFinishedCounter++;
         booksFinishedDisplay.innerHTML = booksFinishedCounter;
         if (this.parentElement.parentElement.classList.contains('finished')) {
             booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML + 1);
         }
     }
-    booksPercentageCounter.innerHTML = Math.round((parseInt(booksFinishedDisplay.innerHTML) / bookCounter) * 100) + '%';
-}
-
-
-function pageLoopCounter() {
-    library.pa
+    update();
 }
 
 function removeBook() {
     const bookDiv = event.target.closest('.book');
     const index = Array.from(libraryContainer.children).indexOf(bookDiv);
-
+    
     library.splice(index, 1);
     bookDiv.remove();
-
+    
     bookCounter--;
     bookQuantityDisplay.innerHTML = bookCounter;
+    update();
 }
 
 function renderLibrary () {
@@ -125,8 +169,8 @@ function createBookDiv (book) {
     bookDiv.classList.add('book');
     
     const titlePhrase = document.createElement('p');
-    titlePhrase.classList.add('book-title')
-    titlePhrase.textContent = `Title: ${book.title}`
+    titlePhrase.classList.add('book-title');
+    titlePhrase.textContent = `Title: ${book.title}`;
     
     const authorPhrase = document.createElement('p');
     authorPhrase.classList.add('author');
@@ -150,10 +194,6 @@ function createBookDiv (book) {
     readButton.classList.add('read');
     readButton.textContent = book.readOrNot ? 'Finished ✔' : 'Not Read ×';
     readButton.addEventListener('click', buttonFlipper);
-    // readButton.addEventListener("click", () => {
-    //     book.read = !book.read;
-    //     readButton.textContent = book.read ? "Not Read ×" : "Finished ✔";
-    //   });
     readOrNotDiv.appendChild(readButton);
     
     const deleteButton = document.createElement('a');
@@ -161,16 +201,16 @@ function createBookDiv (book) {
     deleteButton.classList.add('delete-book');
     deleteButton.setAttribute('onClick', 'removeBook()');
     deleteButton.textContent = '×';
-
+    
     buttonBoxDiv.appendChild(readOrNotDiv);
     buttonBoxDiv.appendChild(deleteButton);
-
+    
     bookDiv.appendChild(titlePhrase);
     bookDiv.appendChild(authorPhrase);
     bookDiv.appendChild(pagesPhrase);
     bookDiv.appendChild(publishedPhrase);
     bookDiv.appendChild(buttonBoxDiv);
-
+        
     return bookDiv;
 }
 
@@ -189,7 +229,7 @@ function validateForm() {
     console.log(titleBook);
     let book = new Book(titleBook, authorBook, pagesNumber, publishedDate, readBookOrNot);
     library.push(book);
-
+    
     const bookDiv = renderBook(book);
     libraryContainer.appendChild(bookDiv);
     closeAddBook();
@@ -208,13 +248,6 @@ function closeAddBook() {
     mainContainer.style.filter = "none";
 }
 
-// When the user clicks the add button, open form 
-// Switches form from 'none' to 'block'
-addBook.onclick = function() {
-    modal.style.display = "block";
-    mainContainer.style.filter = "blur(2px)"
-}
-
 // Close the modal
 span.onclick = function() {
     modal.style.display = "none";
@@ -229,6 +262,14 @@ window.onclick = function(event) {
     }
 }
 
+
 window.onload = function () {
     renderLibrary();
 }
+
+function startUp() {
+    hardCodedBooks();
+    
+    update();
+}
+startUp();
