@@ -71,16 +71,13 @@ function pageLoopCounter() {
 // TODO fix bookFinishedLoop function
 function bookFinishedLoop() {
     booksFinishedCounter = 0;
-    for (let x = 0; x < library.length; x++) {
-        const book = library[x];
-        if (book.hasOwnProperty('readOrNot')) {
+    for (const book of library) {
+        if (book.readOrNot) {
             booksFinishedCounter++;
-            console.log('here');
-
         }
     }
     booksFinishedDisplay.innerHTML = booksFinishedCounter;
-    booksPercentageCounter.innerHTML = Math.round((parseInt(booksFinishedCounter) / bookCounter) * 100) + '%';
+    booksPercentageCounter.innerHTML = Math.round((booksFinishedCounter / bookCounter) * 100) + '%';
 }
 
 function update () {
@@ -98,11 +95,6 @@ function buttonFlipper (event, book){
         
         booksFinishedCounter++;
         booksFinishedDisplay.innerHTML = booksFinishedCounter;
-        // if (event.parentElement.parentElement.classList.contains('finished')) {
-        //     booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML + 1);
-        // }
-        update();
-
     } else if(event.target.innerHTML === 'Finished ✔') {
         console.log('logging this')
         console.log(event.target.target);
@@ -110,11 +102,8 @@ function buttonFlipper (event, book){
         
         booksFinishedCounter--;
         booksFinishedDisplay.innerHTML = booksFinishedCounter;
-        // if (event.parentElement.parentElement.classList.contains('finished')) {
-        //     booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML - 1);
-        // }
-        update();
     }
+    update();
 }
 
 function removeBook() {
