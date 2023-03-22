@@ -40,49 +40,6 @@ function hardCodedBooks () {
     library.push(new Book("The Hobbit", "J.R.R. Tolkien", 304, "1937", false));
 }
 
-// books.forEach(book => {
-//     if (index === 0) {
-//         const addDiv = document.createElement('div');
-//         addDiv.setAttribute('id', 'add-book');
-//         // addDiv.classList.add('book')
-        
-//         const addButton = document.createElement('button');
-//         addButton.setAttribute('type', 'button');
-//         addButton.setAttribute('value', 'Add Child');
-//         addButton.setAttribute('id', 'add-book');
-//         addButton.value = '&plus;';
-//         addDiv.appendChild(addButton);
-        
-//         library.push(addDiv);
-//     } else {
-//         // const titleElement = book.querySelector('.book-title')?.textContent.split(': ')[1];
-//         // const authorElement = book.querySelector('.author')?.textContent.split(': ')[1];
-//         // const pagesElement = parseInt(book.querySelector('.pages')?.textContent.split(': ')[1]);
-//         // const publishedElement = new Date(book.querySelector('.published')?.textContent.split(': ')[1]);
-//         // const readButtonOriginal = book.querySelector('.read');
-//         // const read = readButtonOriginal?.textContent.endsWith('✔');
-//         // const bookObject = new Book(titleElement, authorElement, pagesElement, publishedElement, read);
-        
-//     }
-// });
-
-// function addCard () {
-//     const addDiv = document.createElement('div');
-//     addDiv.setAttribute('id', 'add-book');
-//     // addDiv.classList.add('book')
-    
-//     const addButton = document.createElement('button');
-//     addButton.setAttribute('type', 'button');
-//     addButton.setAttribute('value', 'Add Child');
-//     addButton.setAttribute('id', 'add-book');
-//     addButton.value = '&plus;';
-//     addDiv.appendChild(addButton);
-// }
-
-// function AddCardConstructor(text) {
-//     this.text = text;
-// }
-
 // When the user clicks the add button, open form 
 // Switches form from 'none' to 'block'
 function showForm() {
@@ -102,20 +59,36 @@ function closeNav() {
 
 function pageLoopCounter() {
     let pageCounter = 0;
-    library.forEach(function(book) {
-        pageCounter += parseInt(book.pages);
-    })
+    for (let z = 1; z < library.length; z++) {
+        // console.log(library.length + ' library length');
+        const book = library[z];
+        if (book.hasOwnProperty('pages')) {
+            pageCounter += parseInt(book.pages);
+        } else {return}
+    }
     pageCounterDisplay.innerHTML = pageCounter;
 }
 
-function update () {
-    booksPercentageCounter.innerHTML = Math.round((parseInt(booksFinishedDisplay.innerHTML) / bookCounter) * 100) + '%';
+function bookFinishedLoop() {
+    booksFinishedCounter = 0;
+    for (let x = 0; x < library.length; x++) {
+        const book = library[x];
+        if (book.readOrNot === true) {
+            booksFinishedCounter++;
+        }
+    }
     booksFinishedDisplay.innerHTML = booksFinishedCounter;
-    bookQuantityDisplay.innerHTML = bookCounter;
-    pageCounterDisplay.innerHTML = pageCounter;
+    booksPercentageCounter.innerHTML = Math.round((parseInt(booksFinishedCounter) / bookCounter) * 100) + '%';
+}
+
+function update () {
     bookCounter = library.length - 1;
     bookQuantityDisplay.innerHTML = bookCounter;
+
+    console.log(library.length);
+
     pageLoopCounter();
+    bookFinishedLoop();
 }
 
 function buttonFlipper (){
@@ -158,11 +131,6 @@ function renderLibrary () {
         libraryContainer.appendChild(bookDiv);
     });
 }
-
-// function renderBook (book) {
-//     const bookDiv = createBookDiv(book);
-//     libraryContainer.appendChild(bookDiv);
-// }
 
 function createBookDiv (book) {
     const bookDiv = document.createElement('div');
@@ -228,6 +196,7 @@ function createBookDiv (book) {
 formAddBook.addEventListener('submit', function(event) {
     event.preventDefault();
     validateForm();
+    formAddBook.reset();
 });
 
 function validateForm() {
@@ -244,6 +213,7 @@ function validateForm() {
     const bookDiv = createBookDiv(book);
     libraryContainer.appendChild(bookDiv);
     closeAddBook();
+    update();
 }
 
 function Book(titleBook, authorBook, pagesNumber, publishedDate, readBookOrNot) {
@@ -272,7 +242,6 @@ window.onclick = function(event) {
         mainContainer.style.filter = "none";
     }
 }
-
 
 window.onload = function () {
     renderLibrary();
