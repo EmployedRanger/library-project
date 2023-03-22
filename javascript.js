@@ -49,12 +49,12 @@ function showForm() {
 
 function openNav() {
     document.getElementById("mySidebar").style.width = "20vw";
-    document.getElementById("main").style.marginLeft = "20vw";
+    document.getElementById("main").style.paddingLeft = "20vw";
 }
 
 function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
+    document.getElementById("main").style.paddingLeft= "0";
 }
 
 function pageLoopCounter() {

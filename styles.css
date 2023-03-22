@@ -65,8 +65,7 @@ body {
 }
 
 #main {
-    transition: margin-left .5s;
-    /* padding: 16px;*/
+    transition: 0.5s;
   }
 
 .openbtn {
@@ -139,7 +138,7 @@ h2 {
     font-size: 25px;
     color: var(--olive--);
     display: block;
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
 .sidebar a:hover {
