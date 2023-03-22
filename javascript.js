@@ -73,8 +73,10 @@ function bookFinishedLoop() {
     booksFinishedCounter = 0;
     for (let x = 0; x < library.length; x++) {
         const book = library[x];
-        if (book.readOrNot) {
+        if (book.hasOwnProperty('readOrNot')) {
             booksFinishedCounter++;
+            console.log('here');
+
         }
     }
     booksFinishedDisplay.innerHTML = booksFinishedCounter;
@@ -83,8 +85,6 @@ function bookFinishedLoop() {
 
 function update () {
     bookQuantityDisplay.innerHTML = library.length - 1;
-
-    // console.log(library.length);
 
     pageLoopCounter();
     bookFinishedLoop();
