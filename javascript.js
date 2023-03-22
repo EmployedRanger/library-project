@@ -81,28 +81,24 @@ function bookFinishedLoop() {
 }
 
 function update () {
-    bookQuantityDisplay.innerHTML = library.length - 1;
+    bookCounter = library.length - 1;
+    bookQuantityDisplay.innerHTML = bookCounter;
 
     pageLoopCounter();
     bookFinishedLoop();
 }
 
 function buttonFlipper (event, book){
-    if (event.target.innerHTML === 'Not Read ×') {
-        console.log('logging this')
-        console.log(event.target);
-        event.target.innerHTML = 'Finished ✔';
-        
-        booksFinishedCounter++;
-        booksFinishedDisplay.innerHTML = booksFinishedCounter;
-    } else if(event.target.innerHTML === 'Finished ✔') {
-        console.log('logging this')
-        console.log(event.target.target);
+    if (book.readOrNot) {
+        book.readOrNot = false;
         event.target.innerHTML = 'Not Read ×';
-        
-        booksFinishedCounter--;
-        booksFinishedDisplay.innerHTML = booksFinishedCounter;
+        booksFinishedCounter++;
+    } else {
+        book.readOrNot = true;
+        event.target.innerHTML = 'Finished ✔';
+        booksFinishedCounter--;        
     }
+    booksFinishedDisplay.innerHTML = booksFinishedCounter;
     update();
 }
 
