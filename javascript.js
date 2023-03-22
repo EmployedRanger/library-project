@@ -60,7 +60,6 @@ function closeNav() {
 function pageLoopCounter() {
     let pageCounter = 0;
     for (let z = 1; z < library.length; z++) {
-        // console.log(library.length + ' library length');
         const book = library[z];
         if (book.hasOwnProperty('pages')) {
             pageCounter += parseInt(book.pages);
@@ -69,11 +68,12 @@ function pageLoopCounter() {
     pageCounterDisplay.innerHTML = pageCounter;
 }
 
+// TODO fix bookFinishedLoop function
 function bookFinishedLoop() {
     booksFinishedCounter = 0;
     for (let x = 0; x < library.length; x++) {
         const book = library[x];
-        if (book.readOrNot === true) {
+        if (book.readOrNot) {
             booksFinishedCounter++;
         }
     }
@@ -82,34 +82,39 @@ function bookFinishedLoop() {
 }
 
 function update () {
-    bookCounter = library.length - 1;
-    bookQuantityDisplay.innerHTML = bookCounter;
+    bookQuantityDisplay.innerHTML = library.length - 1;
 
-    console.log(library.length);
+    // console.log(library.length);
 
     pageLoopCounter();
     bookFinishedLoop();
 }
 
-function buttonFlipper (){
-    if (this.innerHTML === 'Finished ✔') {
-        this.innerHTML = 'Not Read ×';
-        
-        booksFinishedCounter--;
-        booksFinishedDisplay.innerHTML = booksFinishedCounter;
-        if (this.parentElement.parentElement.classList.contains('finished')) {
-            booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML - 1);
-        }
-    } else if (this.innerHTML === 'Not Read ×') {
-        this.innerHTML = 'Finished ✔';
+function buttonFlipper (event, book){
+    if (event.target.innerHTML === 'Not Read ×') {
+        console.log('logging this')
+        console.log(event.target);
+        event.target.innerHTML = 'Finished ✔';
         
         booksFinishedCounter++;
         booksFinishedDisplay.innerHTML = booksFinishedCounter;
-        if (this.parentElement.parentElement.classList.contains('finished')) {
-            booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML + 1);
-        }
+        // if (event.parentElement.parentElement.classList.contains('finished')) {
+        //     booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML + 1);
+        // }
+        update();
+
+    } else if(event.target.innerHTML === 'Finished ✔') {
+        console.log('logging this')
+        console.log(event.target.target);
+        event.target.innerHTML = 'Not Read ×';
+        
+        booksFinishedCounter--;
+        booksFinishedDisplay.innerHTML = booksFinishedCounter;
+        // if (event.parentElement.parentElement.classList.contains('finished')) {
+        //     booksFinishedDisplay.innerHTML = parseInt(booksFinishedDisplay.innerHTML - 1);
+        // }
+        update();
     }
-    update();
 }
 
 function removeBook() {
@@ -125,7 +130,7 @@ function removeBook() {
 }
 
 function renderLibrary () {
-    libraryContainer.innerHTML = '';
+    // libraryContainer.innerHTML = '';
     library.forEach((book) => {
         const bookDiv = createBookDiv(book);
         libraryContainer.appendChild(bookDiv);
@@ -135,12 +140,11 @@ function renderLibrary () {
 function createBookDiv (book) {
     const bookDiv = document.createElement('div');
     bookDiv.classList.add('book');
+    // console.log(book);
 
     if (book.title === '+') {
-        console.log('here');
         const addButton = document.createElement('button');
         addButton.setAttribute('type', 'button');
-        addButton.setAttribute('value', 'Add Child');
         addButton.setAttribute('id', 'add-book');
         addButton.setAttribute('class', 'additional-book');
         addButton.innerHTML = '+';
@@ -171,8 +175,31 @@ function createBookDiv (book) {
 
         const readButton = document.createElement('button');
         readButton.classList.add('read');
-        readButton.textContent = book.readOrNot ? 'Finished ✔' : 'Not Read ×';
-        readButton.addEventListener('click', buttonFlipper);
+
+        // TODO change readOrNot to another name
+        if (book.readOrNot) {
+            // console.log('readOrNot is truthy');
+            readButton.textContent = 'Finished ✔';
+        } else {
+            // console.log('readOrNot is falsy');
+            readButton.textContent = 'Not Read ×';
+        }
+        console.log(typeof(book.readOrNot));
+
+        readButton.addEventListener('click', (event) => {
+            buttonFlipper(event, book)
+            // console.log(event.target);
+            // if(event.target === 'Finished ✔') {
+            //     book.readOrNot = true;
+            //     library.find(book => {
+            //         return book.title = 
+            //     });
+            // } else {
+            //     book.readOrNot = false;
+            // }
+            // console.log(book);
+            // console.log(library);
+        });
         readOrNotDiv.appendChild(readButton);
 
         const deleteButton = document.createElement('a');
@@ -200,14 +227,16 @@ formAddBook.addEventListener('submit', function(event) {
 });
 
 function validateForm() {
-    console.log('validated');
     let titleBook = document.getElementById('book-title').value;
     let authorBook = document.getElementById('author').value;
     let pagesNumber= document.getElementById('pages-number').value;
     let publishedDate= document.getElementById('published-date').value;
-    let readBookOrNot = document.getElementById('read-part-form');
-    console.log(titleBook);
-    let book = new Book(titleBook, authorBook, pagesNumber, publishedDate, readBookOrNot);
+    let readOrNot = document.querySelector('#read-part-form').value;
+    readOrNot = !!readOrNot; // changes to boolean
+    console.log(typeof(readOrNot)); 
+    console.log(readOrNot);
+
+    let book = new Book(titleBook, authorBook, pagesNumber, publishedDate, readOrNot);
     library.push(book);
     
     const bookDiv = createBookDiv(book);
@@ -216,12 +245,12 @@ function validateForm() {
     update();
 }
 
-function Book(titleBook, authorBook, pagesNumber, publishedDate, readBookOrNot) {
+function Book(titleBook, authorBook, pagesNumber, publishedDate, readOrNot) {
     this.title = titleBook;
     this.author = authorBook;
     this.pages = pagesNumber;
     this.published = publishedDate;
-    this.readOrNot = readBookOrNot;
+    this.readOrNot = readOrNot;
 }
 
 function closeAddBook() {
