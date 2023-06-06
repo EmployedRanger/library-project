@@ -51,7 +51,7 @@
         <div class="add-book-container">
           <form id="form-add-book">
                 <title>Add New Book</title>
-                <div class="question-container">
+            <div class="question-container">
                 <div class="upper-container">
                     <span class="close-form">&times;</span>
                     <p class="form-title">Add Book to Library</p>
@@ -67,7 +67,7 @@
                 <div class="form-part">
                     <label for="pages-number">How many pages does this have? *</label>
                     <input type="text" placeholder="# of pages"
-                    type="number" id="pages-number" name="pages-number" required>
+                    type="number" id="pages-number" name="pages-number" required pattern="[0-9]+">
                 </div>
                 <div class="form-part">
                     <label for="published-date">When was this published? *</label>
@@ -87,7 +87,7 @@
             </div>
         </form>
         </div>
-      </div>
+    </div>
     <script src="javascript.js"></script>
 </body>
 </html>

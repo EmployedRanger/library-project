@@ -5,13 +5,13 @@ const formAddBook = document.getElementById('form-add-book');
 const modal = document.getElementById("myModal");
 const span = document.getElementsByClassName("close-form")[0];
 const submitButton = document.getElementsByClassName('submit');
-const readButtons = document.querySelectorAll('.read');
+// const readButtons = document.querySelectorAll('.read');
+// const books = document.querySelectorAll('.book');
 const libraryContainer = document.querySelector('.book-container');
 const bookQuantityDisplay = document.getElementById('counter-quantity');
 const booksFinishedDisplay = document.getElementById('counter-finished');
 const pageCounterDisplay = document.getElementById('counter-pages');
 const booksPercentageCounter = document.getElementById('counter-completed');
-const books = document.querySelectorAll('.book');
 let library = [];
 
 let booksFinishedCounter = 14;
@@ -44,7 +44,7 @@ function hardCodedBooks () {
 // Switches form from 'none' to 'block'
 function showForm() {
     modal.style.display = "block";
-    mainContainer.style.filter = "blur(2px)"
+    mainContainer.style.filter = "blur(2px)";
 }
 
 function openNav() {
@@ -173,17 +173,6 @@ function createBookDiv (book) {
 
         readButton.addEventListener('click', (event) => {
             buttonFlipper(event, book)
-            // console.log(event.target);
-            // if(event.target === 'Finished ✔') {
-            //     book.readOrNot = true;
-            //     library.find(book => {
-            //         return book.title = 
-            //     });
-            // } else {
-            //     book.readOrNot = false;
-            // }
-            // console.log(book);
-            // console.log(library);
         });
         readOrNotDiv.appendChild(readButton);
 
@@ -207,19 +196,31 @@ function createBookDiv (book) {
 
 formAddBook.addEventListener('submit', function(event) {
     event.preventDefault();
-    validateForm();
-    formAddBook.reset();
+    if (formAddBook.checkValidity()) {
+        validateForm();
+        formAddBook.reset();
+    } else {
+        console.log('here')
+        formAddBook.reportValidity();
+    }
 });
 
 function validateForm() {
     let titleBook = document.getElementById('book-title').value;
     let authorBook = document.getElementById('author').value;
-    let pagesNumber= document.getElementById('pages-number').value;
+    const pagesNumberInput = document.getElementById('pages-number');
+    const pagesNumber = pagesNumberInput.value;
+    pagesNumberInput.addEventListener('input', (event) => {
+      if (pagesNumberInput.validity.valid) {
+        pagesNumberInput.setCustomValidity('Please enter a valid page count.');
+      } else {
+        pagesNumberInput.setCustomValidity('');
+      }
+    });
+    
     let publishedDate= document.getElementById('published-date').value;
     let readOrNot = document.querySelector('#read-part-form').value;
     readOrNot = !!readOrNot; // changes to boolean
-    console.log(typeof(readOrNot)); 
-    console.log(readOrNot);
 
     let book = new Book(titleBook, authorBook, pagesNumber, publishedDate, readOrNot);
     library.push(book);
@@ -230,12 +231,14 @@ function validateForm() {
     update();
 }
 
-function Book(titleBook, authorBook, pagesNumber, publishedDate, readOrNot) {
-    this.title = titleBook;
-    this.author = authorBook;
-    this.pages = pagesNumber;
-    this.published = publishedDate;
-    this.readOrNot = readOrNot;
+class Book {
+    constructor(titleBook, authorBook, pagesNumber, publishedDate, readOrNot) {
+        this.title = titleBook;
+        this.author = authorBook;
+        this.pages = pagesNumber;
+        this.published = publishedDate;
+        this.readOrNot = readOrNot;
+    }
 }
 
 function closeAddBook() {
